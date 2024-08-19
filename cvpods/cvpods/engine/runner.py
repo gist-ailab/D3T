@@ -348,7 +348,7 @@ Alternatively, you can call evaluation functions yourself (see Colab balloon tut
         )
 
     @classmethod
-    def test(cls, cfg, model, evaluators=None, output_folder=None, model2=None, model3=None):
+    def test(cls, cfg, model, evaluators=None, output_folder=None, model2=None, model3=None, _model_name=None):
         """
         Args:
             cfg (config dict):
@@ -387,7 +387,8 @@ Alternatively, you can call evaluation functions yourself (see Colab balloon tut
             if cfg.TEST.ON_FILES:
                 results_i = inference_on_files(evaluator)
             else:
-                results_i = inference_on_dataset(model, data_loader, evaluator)
+                print(model._get_name())
+                results_i = inference_on_dataset(model, data_loader, evaluator, _model_name)
             results[dataset_name] = results_i
             if comm.is_main_process():
                 assert isinstance(

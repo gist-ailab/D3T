@@ -34,6 +34,9 @@ from cvpods.evaluation import build_evaluator, verify_results
 from cvpods.modeling import GeneralizedRCNN, GeneralizedRCNNWithTTA, TTAWarper
 from cvpods.utils import comm
 
+###  for debug  ###
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+###################
 
 def runner_decrator(cls):
     """
@@ -128,12 +131,14 @@ def get_valid_files(args, cfg, logger):
         assert megfile.smart_exists(model_weights), "{} not exist!!!".format(model_weights)
         return [model_weights]
 
-    file_list = glob.glob(os.path.join(cfg.OUTPUT_DIR, "model_*.pth"))
-    assert len(file_list) > 0, "Plz provide model to evaluate"
+    # file_list = glob.glob(os.path.join(cfg.OUTPUT_DIR, "*_best.pth"))
+    # assert len(file_list) > 0, "Plz provide model to evaluate"
 
-    file_list = filter_by_iters(file_list, args.start_iter, args.end_iter)
-    assert file_list, "No checkpoint valid in {}.".format(cfg.OUTPUT_DIR)
-    logger.info("All files below will be tested in order:\n{}".format(pformat(file_list)))
+    # file_list = filter_by_iters(file_list, args.start_iter, args.end_iter)
+    # assert file_list, "No checkpoint valid in {}.".format(cfg.OUTPUT_DIR)
+    # logger.info("All files below will be tested in order:\n{}".format(pformat(file_list)))
+
+    file_list = glob.glob(cfg.MODEL.WEIGHTS)
     return file_list
 
 
@@ -141,6 +146,9 @@ def get_valid_files(args, cfg, logger):
 def main(args, config, build_model):
     config.merge_from_list(args.opts)
     cfg = default_setup(config, args)
+    # ###  for debug  ###
+    # cfg.MODEL.WEIGHTS = '/SSDe/heeseon/src/D3T/checkpoint/flir_best.pth'
+    # ###################
     if args.num_gpus is None:
         args.num_gpus = torch.cuda.device_count()
     if args.debug:
@@ -166,7 +174,7 @@ def main(args, config, build_model):
         if cfg.TEST.AUG.ENABLED:
             res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test_with_TTA(cfg, model)
         else:
-            res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test(cfg, model)
+            res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test(cfg, model, output_folder='/SSDe/heeseon/src/D3T/outputs', _model_name='student')
 
         if comm.is_main_process():
             verify_results(cfg, res)
@@ -184,7 +192,7 @@ def main(args, config, build_model):
         if cfg.TEST.AUG.ENABLED:
             res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test_with_TTA(cfg, ema_model)
         else:
-            res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test(cfg, ema_model)
+            res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test(cfg, ema_model, _model_name='EMA_RGB')
 
         if comm.is_main_process():
             verify_results(cfg, res)
@@ -202,7 +210,7 @@ def main(args, config, build_model):
         if cfg.TEST.AUG.ENABLED:
             res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test_with_TTA(cfg, ema_model)
         else:
-            res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test(cfg, ema_model)
+            res = runner_decrator(RUNNERS.get(cfg.TRAINER.NAME)).test(cfg, ema_model, _model_name='EMA_Thermal')
 
         if comm.is_main_process():
             verify_results(cfg, res)
@@ -216,6 +224,11 @@ def main(args, config, build_model):
 
 if __name__ == "__main__":
     args = test_argument_parser().parse_args()
+    ###  for debug  ###
+    args.dir = '/SSDe/heeseon/src/D3T/experiment/flir_rgb2thermal'
+    args.num_gpus = 1
+    # args.model_weights = '/SSDe/heeseon/src/D3T/checkpoint/flir_best.pth'
+    ###################
     logger.info("Command Line Args: {}".format(args))
     if args.num_gpus is None:
         args.num_gpus = torch.cuda.device_count()
@@ -223,6 +236,7 @@ if __name__ == "__main__":
     extra_sys_path = ".." if args.dir is None else args.dir
     sys.path.append(extra_sys_path)
 
+    logger.info(f"sys.path: {sys.path}")
     from config import config  # isort:skip  # noqa: E402
     from net import build_model  # isort:skip  # noqa: E402
 

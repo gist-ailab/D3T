@@ -15,7 +15,8 @@ _config_dict = dict(
         TEST=("FlirAlignIr_val",),
     ),
     MODEL=dict(
-        WEIGHTS='../../cvpods/pretrained_model/vgg16_wo_bn_caffe_normal.pkl',
+        # WEIGHTS='../../cvpods/pretrained_model/vgg16_wo_bn_caffe_normal.pkl',
+        WEIGHTS='/SSDe/heeseon/src/D3T/checkpoint/flir_best.pth',
         RESNETS=dict(DEPTH=50),
         BACKBONE=dict(NAME='vgg', VGG_W_BN=False, ),
         FPN=dict(IN_FEATURES=["vgg2", "vgg3", "vgg4"],),
@@ -118,7 +119,7 @@ _config_dict = dict(
             ],
         )
     ),
-    OUTPUT_DIR='outputs',
+    OUTPUT_DIR='/SSDe/heeseon/src/D3T/checkpoint',
     WANDB=False,
     GLOBAL=dict(
         LOG_INTERVAL=10,

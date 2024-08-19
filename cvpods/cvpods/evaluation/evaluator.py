@@ -89,7 +89,92 @@ class DatasetEvaluators(DatasetEvaluator):
         return results
 
 
-def inference_on_dataset(model, data_loader, evaluator):
+def inference_on_dataset(model, data_loader, evaluator, _model_name):
+    import os
+    import cv2
+    import numpy as np
+    import matplotlib.pyplot as plt
+    os.makedirs(f'/SSDe/heeseon/src/D3T/outputs/visualize/{_model_name}', exist_ok=True)
+
+    def visualize_pred(image_np, instances, idx):
+        image_pred = image_np.copy()
+        class_names = {0: "person", 1: "car", 2: "bicycle"}    # 'person', 'car', 'bicycle'
+
+        # 바운딩 박스, 클래스, 스코어 정보 추출
+        boxes = instances.pred_boxes.tensor.cpu().numpy()
+        classes = instances.pred_classes.cpu().numpy()
+        scores = instances.scores.cpu().numpy()
+
+        # 바운딩 박스 그리기
+        for i in range(len(boxes)):
+            box = boxes[i]
+            class_id = classes[i]
+            class_name = class_names.get(class_id, "Unknown")
+            score = scores[i]
+
+            if score < 0.5 : continue
+            
+            # 바운딩 박스 그리기
+            original_h, original_w = 512, 640
+            resize_h, resize_w = 800, 1000
+
+            scale_x = resize_w / original_w
+            scale_y = resize_h / original_h
+
+            resized_bbox = box.copy()  # 원본을 변경하지 않기 위해 clone 사용
+            # bbox의 좌표들을 각각 스케일링
+            resized_bbox[0] = box[0] * scale_x  # x1
+            resized_bbox[1] = box[1] * scale_y  # y1
+            resized_bbox[2] = box[2] * scale_x  # x2
+            resized_bbox[3] = box[3] * scale_y  # y2
+
+            x1, y1, x2, y2 = map(int, resized_bbox)
+            cv2.rectangle(image_pred, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            
+            # 클래스와 스코어 텍스트 추가
+            label = f"{class_name}: {score:.2f}"
+            cv2.putText(image_pred, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        
+        # # 이미지 시각화 및 저장
+        # plt.imshow(image_pred)
+        # plt.axis('off')
+        # plt.title("Predicted Instances")
+        # plt.savefig(f'/SSDe/heeseon/src/D3T/outputs/visualize/{idx}_prediction.png', bbox_inches='tight', pad_inches=0)
+        # # plt.savefig("predicted_instances.png", bbox_inches='tight', pad_inches=0)
+        # plt.close()
+
+        return image_pred
+
+    def visualize_gt(image_np, inputs, idx):
+        image_gt = image_np.copy()
+        class_names = {0: "person", 1: "car", 2: "bicycle"}    # 'person', 'car', 'bicycle'
+
+        gt_boxes = inputs[0]['instances'].gt_boxes.tensor
+        gt_classes = inputs[0]['instances'].gt_classes
+
+        # 이미지에 bbox와 클래스 레이블 그리기
+        for i in range(len(gt_boxes)):
+            box = gt_boxes[i].cpu().numpy().astype(int)
+            class_id = gt_classes[i].item()
+            class_name = class_names.get(class_id, "Unknown")
+
+            # bbox 그리기
+            x1, y1, x2, y2 = box
+            cv2.rectangle(image_gt, (x1, y1), (x2, y2), (255, 0, 0), 2) # BGR
+
+            # 클래스 이름 쓰기
+            cv2.putText(image_gt, class_name, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
+
+        # # 이미지를 시각화
+        # plt.figure(figsize=(10, 10))
+        # plt.imshow(cv2.cvtColor(image_gt, cv2.COLOR_BGR2RGB))
+        # plt.title("Image with Ground Truth Bounding Boxes")
+        # plt.axis("off")
+        # # plt.savefig(f'/SSDe/heeseon/src/D3T/outputs/visualize/{idx}_ground_truth.png', bbox_inches='tight', pad_inches=0)
+        # plt.close()
+
+        return image_gt
+
     """
     Run model on the data_loader and evaluate the metrics with evaluator.
     The model will be used in eval mode.
@@ -133,6 +218,41 @@ def inference_on_dataset(model, data_loader, evaluator):
                 torch.cuda.synchronize()
             total_compute_time += time.perf_counter() - start_compute_time
             evaluator.process(inputs, outputs)
+
+            ############################    visualize results    ############################
+            image_tensor = inputs[0]['image']
+            image_np = image_tensor.permute(1, 2, 0).cpu().numpy()
+
+            # ##  visualize input image  ##
+            # plt.imshow(image_np)
+            # plt.title('Input Image')
+            # plt.axis('off')  # 축 제거
+            # plt.savefig(f'/SSDe/heeseon/src/D3T/outputs/visualize/input_image_{idx}.png', bbox_inches='tight', pad_inches=0)
+            # plt.close()
+            # #############################
+
+            instances = outputs[0]['instances']
+
+            image_pred = visualize_pred(image_np, instances, idx)
+            image_gt = visualize_gt(image_np, inputs, idx)
+
+            ######   visualize and save   ######
+            fig, ax = plt.subplots(1, 2, figsize=(20, 10))
+
+            # Ground Truth 이미지 표시
+            ax[0].imshow(cv2.cvtColor(image_gt, cv2.COLOR_BGR2RGB))
+            ax[0].set_title("Ground Truth")
+            ax[0].axis("off")
+
+            # Predicted 이미지 표시
+            ax[1].imshow(cv2.cvtColor(image_pred, cv2.COLOR_BGR2RGB))
+            ax[1].set_title("Predicted")
+            ax[1].axis("off")
+
+            plt.savefig(f'/SSDe/heeseon/src/D3T/outputs/visualize/{_model_name}/{idx}.png', bbox_inches='tight', pad_inches=0)
+            ####################################
+
+            #################################################################################
 
             iters_after_start = idx + 1 - num_warmup * int(idx >= num_warmup)
             seconds_per_img = total_compute_time / iters_after_start

@@ -1,0 +1,165 @@
+2024-08-18 19:03:51.509 | INFO     | cvpods.engine.setup:default_setup:137 - Rank of current process: 0. World size: 1
+2024-08-18 19:03:52.196 | INFO     | cvpods.engine.setup:default_setup:139 - Environment info:
+----------------------  ------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.8.5 (default, Sep  4 2020, 07:30:14) [GCC 7.3.0]
+numpy                   1.20.3
+cvpods                  0.1 @/SSDe/heeseon/src/D3T/cvpods/cvpods
+cvpods compiler         GCC 9.4
+cvpods CUDA compiler    11.3
+cvpods arch flags       sm_86
+cvpods_ENV_MODULE       <not set>
+PyTorch                 1.10.1 @/home/heeseon_rho/anaconda3/envs/D3T/lib/python3.8/site-packages/torch
+PyTorch debug build     False
+CUDA available          True
+GPU 0                   NVIDIA GeForce RTX 3090
+CUDA_HOME               /usr/local/cuda-11.3
+NVCC                    Build cuda_11.3.r11.3/compiler.29920130_0
+Pillow                  9.2.0
+torchvision             0.11.2 @/home/heeseon_rho/anaconda3/envs/D3T/lib/python3.8/site-packages/torchvision
+torchvision arch flags  sm_35, sm_50, sm_60, sm_70, sm_75, sm_80, sm_86
+cv2                     4.10.0
+----------------------  ------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2021.4-Product Build 20210904 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.2.3 (Git Hash 7336ca9f055cf1bfa13efb658fe15dc9b41f0740)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.10.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+2024-08-18 19:03:52.197 | INFO     | cvpods.engine.setup:default_setup:141 - Command line arguments: Namespace(debug=False, dir='.', dist_url='tcp://127.0.0.1:50170', end_iter=None, eval_only=False, machine_rank=0, num_gpus=1, num_machines=1, opts=['MODEL.WEIGHTS', '/SSDe/heeseon/src/D3T/checkpoint/flir_best.pth'], resume=False, start_iter=None)
+2024-08-18 19:03:52.198 | INFO     | cvpods.utils.env.env:seed_all_rng:46 - Using a generated random seed 55405750
+2024-08-18 19:03:58.677 | INFO     | cvpods.checkpoint.checkpoint:load:107 - Loading checkpoint from /SSDe/heeseon/src/D3T/checkpoint/flir_best.pth
+2024-08-18 19:03:59.520 | INFO     | cvpods.data.build:build_test_loader:175 - TransformGens used: [ResizeShortestEdge(short_edge_length=(800, 800), max_size=1333, sample_style='choice')] in testing
+2024-08-18 19:04:05.834 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:112 - Start inference on 1013 data samples
+2024-08-18 19:04:08.384 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 11/1013. 0.0417 s / sample. ETA=0:00:42
+2024-08-18 19:04:13.384 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 128/1013. 0.0414 s / sample. ETA=0:00:37
+2024-08-18 19:04:18.393 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 246/1013. 0.0413 s / sample. ETA=0:00:32
+2024-08-18 19:04:23.399 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 363/1013. 0.0414 s / sample. ETA=0:00:27
+2024-08-18 19:04:28.430 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 481/1013. 0.0414 s / sample. ETA=0:00:22
+2024-08-18 19:04:33.440 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 543/1013. 0.0459 s / sample. ETA=0:00:22
+2024-08-18 19:04:38.444 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 663/1013. 0.0449 s / sample. ETA=0:00:16
+2024-08-18 19:04:43.486 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 783/1013. 0.0443 s / sample. ETA=0:00:10
+2024-08-18 19:04:48.500 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 902/1013. 0.0439 s / sample. ETA=0:00:04
+2024-08-18 19:04:53.237 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:154 - Total inference time: 0:00:45.110706 (0.044753 s / sample per device, on 1 devices)
+2024-08-18 19:04:53.238 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:160 - Total inference pure compute time: 0:00:43 (0.043553 s / sample per device, on 1 devices)
+2024-08-18 19:04:53.241 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:86 - Evaluating FlirAlignIr_val using 2007 metric. Note that results do not use the official Matlab API.
+2024-08-18 19:05:23.581 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:122 - Evaluation results for bbox: 
+|   AP   |  AP50  |  AP75  |
+|:------:|:------:|:------:|
+| 32.321 | 68.126 | 24.425 |
+2024-08-18 19:05:23.581 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:124 - Evaluation results for bbox (per-category): 
+|  person  |  car   |  bicycle  |
+|:--------:|:------:|:---------:|
+|  66.681  | 78.244 |  59.454   |
+2024-08-18 19:05:23.583 | INFO     | cvpods.engine.runner:test:398 - Evaluation results for FlirAlignIr_val in csv format:
+2024-08-18 19:05:23.583 | INFO     | cvpods.evaluation.testing:print_csv_format:26 - copypaste: Task: bbox
+2024-08-18 19:05:23.583 | INFO     | cvpods.evaluation.testing:print_csv_format:27 - copypaste: AP,AP50,AP75
+2024-08-18 19:05:23.583 | INFO     | cvpods.evaluation.testing:print_csv_format:28 - copypaste: 32.3213,68.1262,24.4252
+2024-08-18 19:05:23.892 | INFO     | cvpods.checkpoint.checkpoint:load:107 - Loading checkpoint from /SSDe/heeseon/src/D3T/checkpoint/flir_best.pth
+2024-08-18 19:05:24.125 | INFO     | cvpods.data.build:build_test_loader:175 - TransformGens used: [ResizeShortestEdge(short_edge_length=(800, 800), max_size=1333, sample_style='choice')] in testing
+2024-08-18 19:05:24.654 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:112 - Start inference on 1013 data samples
+2024-08-18 19:05:25.441 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 11/1013. 0.0411 s / sample. ETA=0:00:42
+2024-08-18 19:05:30.452 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 130/1013. 0.0411 s / sample. ETA=0:00:37
+2024-08-18 19:05:35.471 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 249/1013. 0.0411 s / sample. ETA=0:00:32
+2024-08-18 19:05:40.485 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 367/1013. 0.0412 s / sample. ETA=0:00:27
+2024-08-18 19:05:45.516 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 482/1013. 0.0415 s / sample. ETA=0:00:22
+2024-08-18 19:05:50.549 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 597/1013. 0.0417 s / sample. ETA=0:00:17
+2024-08-18 19:05:55.564 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 713/1013. 0.0417 s / sample. ETA=0:00:12
+2024-08-18 19:06:00.592 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 831/1013. 0.0417 s / sample. ETA=0:00:07
+2024-08-18 19:06:05.606 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 949/1013. 0.0416 s / sample. ETA=0:00:02
+2024-08-18 19:06:08.453 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:154 - Total inference time: 0:00:43.263863 (0.042920 s / sample per device, on 1 devices)
+2024-08-18 19:06:08.453 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:160 - Total inference pure compute time: 0:00:41 (0.041627 s / sample per device, on 1 devices)
+2024-08-18 19:06:08.459 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:86 - Evaluating FlirAlignIr_val using 2007 metric. Note that results do not use the official Matlab API.
+2024-08-18 19:06:39.628 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:122 - Evaluation results for bbox: 
+|   AP   |  AP50  |  AP75  |
+|:------:|:------:|:------:|
+| 34.413 | 69.611 | 28.814 |
+2024-08-18 19:06:39.628 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:124 - Evaluation results for bbox (per-category): 
+|  person  |  car   |  bicycle  |
+|:--------:|:------:|:---------:|
+|  70.828  | 80.394 |  57.612   |
+2024-08-18 19:06:39.630 | INFO     | cvpods.engine.runner:test:398 - Evaluation results for FlirAlignIr_val in csv format:
+2024-08-18 19:06:39.630 | INFO     | cvpods.evaluation.testing:print_csv_format:26 - copypaste: Task: bbox
+2024-08-18 19:06:39.630 | INFO     | cvpods.evaluation.testing:print_csv_format:27 - copypaste: AP,AP50,AP75
+2024-08-18 19:06:39.630 | INFO     | cvpods.evaluation.testing:print_csv_format:28 - copypaste: 34.4131,69.6114,28.8137
+2024-08-18 19:06:39.939 | INFO     | cvpods.checkpoint.checkpoint:load:107 - Loading checkpoint from /SSDe/heeseon/src/D3T/checkpoint/flir_best.pth
+2024-08-18 19:06:40.158 | INFO     | cvpods.data.build:build_test_loader:175 - TransformGens used: [ResizeShortestEdge(short_edge_length=(800, 800), max_size=1333, sample_style='choice')] in testing
+2024-08-18 19:06:40.626 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:112 - Start inference on 1013 data samples
+2024-08-18 19:06:41.490 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 11/1013. 0.0436 s / sample. ETA=0:00:45
+2024-08-18 19:06:46.491 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 130/1013. 0.0410 s / sample. ETA=0:00:37
+2024-08-18 19:06:51.518 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 248/1013. 0.0412 s / sample. ETA=0:00:32
+2024-08-18 19:06:56.529 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 367/1013. 0.0412 s / sample. ETA=0:00:27
+2024-08-18 19:07:01.557 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 486/1013. 0.0412 s / sample. ETA=0:00:22
+2024-08-18 19:07:06.579 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 604/1013. 0.0412 s / sample. ETA=0:00:17
+2024-08-18 19:07:11.592 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 719/1013. 0.0414 s / sample. ETA=0:00:12
+2024-08-18 19:07:16.629 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 835/1013. 0.0415 s / sample. ETA=0:00:07
+2024-08-18 19:07:21.653 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 952/1013. 0.0415 s / sample. ETA=0:00:02
+2024-08-18 19:07:24.429 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:154 - Total inference time: 0:00:43.209623 (0.042867 s / sample per device, on 1 devices)
+2024-08-18 19:07:24.430 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:160 - Total inference pure compute time: 0:00:41 (0.041554 s / sample per device, on 1 devices)
+2024-08-18 19:07:24.433 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:86 - Evaluating FlirAlignIr_val using 2007 metric. Note that results do not use the official Matlab API.
+2024-08-18 19:07:55.359 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:122 - Evaluation results for bbox: 
+|   AP   |  AP50  |  AP75  |
+|:------:|:------:|:------:|
+| 34.855 | 69.744 | 28.710 |
+2024-08-18 19:07:55.359 | INFO     | cvpods.evaluation.pascal_voc_evaluation:evaluate:124 - Evaluation results for bbox (per-category): 
+|  person  |  car   |  bicycle  |
+|:--------:|:------:|:---------:|
+|  72.086  | 80.734 |  56.413   |
+2024-08-18 19:07:55.361 | INFO     | cvpods.engine.runner:test:398 - Evaluation results for FlirAlignIr_val in csv format:
+2024-08-18 19:07:55.361 | INFO     | cvpods.evaluation.testing:print_csv_format:26 - copypaste: Task: bbox
+2024-08-18 19:07:55.361 | INFO     | cvpods.evaluation.testing:print_csv_format:27 - copypaste: AP,AP50,AP75
+2024-08-18 19:07:55.361 | INFO     | cvpods.evaluation.testing:print_csv_format:28 - copypaste: 34.8554,69.7445,28.7104
+2024-08-19 01:16:48.290 | INFO     | cvpods.engine.setup:default_setup:137 - Rank of current process: 0. World size: 1
+2024-08-19 01:16:49.131 | INFO     | cvpods.engine.setup:default_setup:139 - Environment info:
+----------------------  ------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.8.5 (default, Sep  4 2020, 07:30:14) [GCC 7.3.0]
+numpy                   1.20.3
+cvpods                  0.1 @/SSDe/heeseon/src/D3T/cvpods/cvpods
+cvpods compiler         GCC 9.4
+cvpods CUDA compiler    11.3
+cvpods arch flags       sm_86
+cvpods_ENV_MODULE       <not set>
+PyTorch                 1.10.1 @/home/heeseon_rho/anaconda3/envs/D3T/lib/python3.8/site-packages/torch
+PyTorch debug build     False
+CUDA available          True
+GPU 0                   NVIDIA GeForce RTX 3090
+CUDA_HOME               /usr/local/cuda-11.3
+NVCC                    Build cuda_11.3.r11.3/compiler.29920130_0
+Pillow                  9.2.0
+torchvision             0.11.2 @/home/heeseon_rho/anaconda3/envs/D3T/lib/python3.8/site-packages/torchvision
+torchvision arch flags  sm_35, sm_50, sm_60, sm_70, sm_75, sm_80, sm_86
+cv2                     4.10.0
+----------------------  ------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2021.4-Product Build 20210904 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.2.3 (Git Hash 7336ca9f055cf1bfa13efb658fe15dc9b41f0740)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.10.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+2024-08-19 01:16:49.132 | INFO     | cvpods.engine.setup:default_setup:141 - Command line arguments: Namespace(debug=False, dir='/SSDe/heeseon/src/D3T/experiment/flir_rgb2thermal', dist_url='tcp://127.0.0.1:50170', end_iter=None, eval_only=False, machine_rank=0, model_weights='/SSDe/heeseon/src/D3T/checkpoint/flir_best.pth', num_gpus=1, num_machines=1, opts=['MODEL.WEIGHTS', '/SSDe/heeseon/src/D3T/checkpoint/flir_best.pth'], resume=False, start_iter=None)
+2024-08-19 01:16:49.133 | INFO     | cvpods.utils.env.env:seed_all_rng:46 - Using a generated random seed 52678089
+2024-08-19 01:16:55.482 | INFO     | cvpods.checkpoint.checkpoint:load:107 - Loading checkpoint from /SSDe/heeseon/src/D3T/checkpoint/flir_best.pth
+2024-08-19 01:16:55.714 | INFO     | cvpods.data.build:build_test_loader:175 - TransformGens used: [ResizeShortestEdge(short_edge_length=(800, 800), max_size=1333, sample_style='choice')] in testing
+2024-08-19 01:17:02.857 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:112 - Start inference on 1013 data samples
+2024-08-19 01:17:04.739 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 11/1013. 0.0404 s / sample. ETA=0:00:41
+2024-08-19 01:17:09.858 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 119/1013. 0.0460 s / sample. ETA=0:00:42
+2024-08-19 01:17:14.888 | INFO     | cvpods.evaluation.evaluator:inference_on_dataset:142 - Inference done 179/1013. 0.0587 s / sample. ETA=0:00:49
